@@ -134,6 +134,7 @@
   font-size: 0.9rem;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .DateTagBar__Item {
@@ -153,6 +154,10 @@
   color: hsla(45, 8%, 25%, 1);
   font-size: 0.85rem;
   white-space: nowrap;
+}
+
+.DateTagBar__TagList {
+  display: flex;
 }
 
 .DateTagBar__Tag--default {
