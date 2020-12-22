@@ -52,6 +52,7 @@
   --color-ui-hover-bg: rgba(55, 53, 47, 0.08);
   --column-spacing: 46px;
   --color-snow-primary: rgb(43, 146, 253);
+  --color-snow-bg: rgb(253, 241, 221);
 }
 
 body {
@@ -61,6 +62,7 @@ body {
     "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "Noto Sans", sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   margin: 0;
+  background-color: var(--color-snow-bg);
 }
 
 code {
