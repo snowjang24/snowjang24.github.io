@@ -1,70 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <!-- Chrome, Firefox OS and Opera Status Bar Color -->
+    <meta name="theme-color" content="#FFFFFF" />
+    <meta property="og:title" content="Chrome Extention 개발하기 - 1" />
+        <meta name="description" content="크롬 익스텐션 개발은 JS로 여느 웹 개발과 동일하며, 브라우저 자체에서 제공하는 크롬 익스텐션 API를 추가로 사용하는 점에서 약간의 차이가 있습니다." />
+    <meta property="og:description" content="크롬 익스텐션 개발은 JS로 여느 웹 개발과 동일하며, 브라우저 자체에서 제공하는 크롬 익스텐션 API를 추가로 사용하는 점에서 약간의 차이가 있습니다." />
+        <meta property="og:type" content="blog" />
+    <title>Chrome Extention 개발하기 - 1</title>
+    <!-- Favicon -->
+        <link rel="shortcut icon" href="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F05840bbe-4318-4f7d-8137-d24f60003676%2Fjsnow_logo-b7f2b1915c73ea56bc6dcbe47cd6bf37.svg?table=collection&id=a638cb1d-7ab3-403b-8b63-d3c28730a5eb" />
+        <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="css/SourceSansPro.css" />
+    <link rel="stylesheet" type="text/css" href="css/notablog.css" />
+    <link rel="stylesheet" type="text/css" href="css/theme.css" />
+    <style>
+      :root {
+        font-size: 18px;
+      }
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- iOS Safari -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <!-- Chrome, Firefox OS and Opera Status Bar Color -->
-  <meta name="theme-color" content="#FFFFFF">
-  <meta property="og:title" content="Chrome Extention 개발하기 - 1">
-    <meta name="description" content="크롬 익스텐션 개발은 JS로 여느 웹 개발과 동일하며, 브라우저 자체에서 제공하는 크롬 익스텐션 API를 추가로 사용하는 점에서 약간의 차이가 있습니다.">
-  <meta property="og:description" content="크롬 익스텐션 개발은 JS로 여느 웹 개발과 동일하며, 브라우저 자체에서 제공하는 크롬 익스텐션 API를 추가로 사용하는 점에서 약간의 차이가 있습니다.">
-    <meta property="og:type" content="blog">
-  <title>Chrome Extention 개발하기 - 1</title>
-  <!-- Favicon -->
-    <link rel="shortcut icon" href="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F05840bbe-4318-4f7d-8137-d24f60003676%2Fjsnow_logo-b7f2b1915c73ea56bc6dcbe47cd6bf37.svg?table=collection&id=a638cb1d-7ab3-403b-8b63-d3c28730a5eb">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
-  <link rel="stylesheet" type="text/css"
-    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism.min.css">
-  <link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
-  <link rel="stylesheet" type="text/css" href="css/notablog.css">
-  <link rel="stylesheet" type="text/css" href="css/theme.css">
-  <style>
-    :root {
-      font-size: 18px;
-    }
+      .DateTagBar {
+        margin-top: 1rem;
+      }
+    </style>
+  </head>
 
-    .DateTagBar {
-      margin-top: 1.0rem;
-    }
-  </style>
-</head>
-
-<body>
-  <nav class="Navbar">
-    <a href="index.html">
-      <div class="Navbar__Btn"><span><img class="inline-img-icon" src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F05840bbe-4318-4f7d-8137-d24f60003676%2Fjsnow_logo-b7f2b1915c73ea56bc6dcbe47cd6bf37.svg?table=collection&id=a638cb1d-7ab3-403b-8b63-d3c28730a5eb"></span> <span>JSnow Blog;</span></div>
-    </a>
-                            <span class="Navbar__Delim">&centerdot;</span>
-    <a href="about.html">
-      <div class="Navbar__Btn"><span>❄️</span> <span>About</span></div>
-    </a>
-                  </nav>
-  <header class="Header">
-          <div class="Header__Spacer Header__Spacer--NoCover">
-    </div>
-        <div class="Header__Icon"><span>🧩</span></div>
-        <h1 class="Header__Title">Chrome Extention 개발하기 - 1</h1>
+  <body>
+    <nav class="Navbar">
+      <a href="index.html">
+        <div class="Navbar__Btn">
+          <span><img class="inline-img-icon" src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F05840bbe-4318-4f7d-8137-d24f60003676%2Fjsnow_logo-b7f2b1915c73ea56bc6dcbe47cd6bf37.svg?table=collection&id=a638cb1d-7ab3-403b-8b63-d3c28730a5eb"></span> <span>JSnow Blog;</span>
+        </div>
+      </a>
+                 <span class="Navbar__Delim">&centerdot;</span>
+      <a href="about.html">
+        <div class="Navbar__Btn">
+          <span>❄️</span> <span>About</span>
+        </div>
+      </a>
+             </nav>
+    <header class="Header">
+            <div
+        class="Header__Spacer Header__Spacer--NoCover"
+      ></div>
+            <div class="Header__Icon"><span>🧩</span></div>
+            <h1 class="Header__Title">Chrome Extention 개발하기 - 1</h1>
             <div class="DateTagBar">
-      <div class="DateTagBar__TagList">
-              <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--purple">
+        <div class="DateTagBar__TagList">
+                    <span
+            class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--purple"
+          >
             <a href="tag/chrome.html">chrome</a>
           </span>
-              <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--gray">
+                    <span
+            class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--gray"
+          >
             <a href="tag/extension.html">extension</a>
           </span>
-              <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--yellow">
+                    <span
+            class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--yellow"
+          >
             <a href="tag/js.html">js</a>
           </span>
+                  </div>
+                <span class="DateTagBar__Item DateTagBar__Date"
+          >Posted on Tue, Dec 22, 2020</span
+        >
               </div>
-                      <span class="DateTagBar__Item DateTagBar__Date">Posted on Tue, Dec 22, 2020</span>
-                  
-        </div>
           </header>
-      <article id="https://www.notion.so/0b8e70441a434c3da9971122bf2bf47d" class="PageRoot"><h2 id="https://www.notion.so/df55cfdb15574ebda4769cdbbb9afb62" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/df55cfdb15574ebda4769cdbbb9afb62"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Chrome Extension API</span></span></h2><div id="https://www.notion.so/21809d04e060444b9141b6ad09c61976" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://developer.chrome.com/extensions/getstarted">크롬 익스텐션 개발 공식 문서</a></span><span class="SemanticString">를 참고하여 </span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://momentumdash.com/">Momentum</a></span><span class="SemanticString">이나 </span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://www.surfit.io/">Surfit</a></span><span class="SemanticString">같이 브라우저의 새 탭을 열었을 때, 익스텐션 페이지가 열리도록 하는 크롬 익스텐션을 개발하려 합니다.</span></span></p></div><div id="https://www.notion.so/c0a62bb9eeb14faba299f3c24b858138" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">크롬 익스텐션 개발은 JS로 여느 웹 개발과 동일하며, 브라우저 자체에서 제공하는 크롬 익스텐션 API를 추가로 사용하는 점에서 약간의 차이가 있습니다.</span></span></p></div><h3 id="https://www.notion.so/ae848fb671ed466995d519d427eee4e0" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/ae848fb671ed466995d519d427eee4e0"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Manifest 만들기</span></span></h3><div id="https://www.notion.so/06fe92e2d07e4b2e93ee3a5fd98e840d" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">크롬 익스텐션 개발은 manifest를 만드는 것에서부터 시작됩니다. 가장 먼저 프로젝트 생성을 위해 아래와 같이 폴더와 </span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">manifest.json</code></span><span class="SemanticString">을 생성합니다.</span></span></p></div><pre id="https://www.notion.so/cf3b2c1fc9074b699340312b914fed39" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token function">mkdir</span> my-chrome-extension <span class="token operator">&amp;</span> <span class="token builtin class-name">cd</span> <span class="token variable">$_</span>
+    <article id="https://www.notion.so/0b8e70441a434c3da9971122bf2bf47d" class="PageRoot"><h2 id="https://www.notion.so/df55cfdb15574ebda4769cdbbb9afb62" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/df55cfdb15574ebda4769cdbbb9afb62"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Chrome Extension API</span></span></h2><div id="https://www.notion.so/21809d04e060444b9141b6ad09c61976" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://developer.chrome.com/extensions/getstarted">크롬 익스텐션 개발 공식 문서</a></span><span class="SemanticString">를 참고하여 </span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://momentumdash.com/">Momentum</a></span><span class="SemanticString">이나 </span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://www.surfit.io/">Surfit</a></span><span class="SemanticString">같이 브라우저의 새 탭을 열었을 때, 익스텐션 페이지가 열리도록 하는 크롬 익스텐션을 개발하려 합니다.</span></span></p></div><div id="https://www.notion.so/c0a62bb9eeb14faba299f3c24b858138" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">크롬 익스텐션 개발은 JS로 여느 웹 개발과 동일하며, 브라우저 자체에서 제공하는 크롬 익스텐션 API를 추가로 사용하는 점에서 약간의 차이가 있습니다.</span></span></p></div><h3 id="https://www.notion.so/ae848fb671ed466995d519d427eee4e0" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/ae848fb671ed466995d519d427eee4e0"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Manifest 만들기</span></span></h3><div id="https://www.notion.so/06fe92e2d07e4b2e93ee3a5fd98e840d" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">크롬 익스텐션 개발은 manifest를 만드는 것에서부터 시작됩니다. 가장 먼저 프로젝트 생성을 위해 아래와 같이 폴더와 </span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">manifest.json</code></span><span class="SemanticString">을 생성합니다.</span></span></p></div><pre id="https://www.notion.so/cf3b2c1fc9074b699340312b914fed39" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token function">mkdir</span> my-chrome-extension <span class="token operator">&amp;</span> <span class="token builtin class-name">cd</span> <span class="token variable">$_</span>
 <span class="token function">touch</span> manifest.json</span></span></span></code></pre><div id="https://www.notion.so/08333e5951be4a2a98be5417e49d3f6f" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://developer.chrome.com/extensions/manifest">Manifest File Format</a></span><span class="SemanticString">에서 어떠한 키와 값을 쓸 수 있는지 확인 할 수 있습니다. 아래의 코드가 가장 기본이 되는 설정입니다. 이름, 버전 그리고 설명에 대해 정의합니다.</span></span></p></div><pre id="https://www.notion.so/b7d0c27cd1fc42e6ae41824ee86a0238" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token punctuation">{</span>
 	<span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Getting Started Example"</span><span class="token punctuation">,</span>
 	<span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"1.0"</span><span class="token punctuation">,</span>
@@ -79,13 +100,18 @@
     <span class="token punctuation">}</span>
   <span class="token punctuation">]</span></span></span></span></code></pre><div id="https://www.notion.so/7ffd5399ee144c9a9ada9962f0eee528" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">아래와 같이 DOM을 페이지에 추가할 수 있게 된다.</span></span></p></div><pre id="https://www.notion.so/36fa7cd1708d470facb8da365579b355" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token keyword">const</span> p <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">"p"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 p<span class="token punctuation">.</span>innerText <span class="token operator">=</span> <span class="token string">"Hello"</span><span class="token punctuation">;</span>
-document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span></span></span></span></code></pre></li><li id="https://www.notion.so/7ed5060dc71d4a808d8c2a2606c3311a" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">북마크 불러와서 저장</span></span><ul class="BulletedListWrapper"><li id="https://www.notion.so/d5caf1aadd2e4e5398fed90a3a7a232c" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://developer.chrome.com/extensions/manifest/storage">Manifest for storage area</a></span></span></li></ul></li><li id="https://www.notion.so/f5dab321bafb484f84b5d8b94ffb6a93" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">브라우저 북마크 관리</span></span><ul class="BulletedListWrapper"><li id="https://www.notion.so/79d198e764394ac5b516f1b18e936398" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://developer.chrome.com/extensions/bookmarks">chrome.bookmarks</a></span></span></li></ul></li><li id="https://www.notion.so/7eb2102de0aa4c7589aacb3ec2715e33" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">컨텍스트 메뉴로 링크 저장할 수 있게</span></span><ul class="BulletedListWrapper"><li id="https://www.notion.so/672a8de39b8447a88903b1eddb65a07f" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://developer.chrome.com/extensions/contextMenus">chrome.contextMenus</a></span></span></li></ul></li><li id="https://www.notion.so/3492a23e949446ebbf86a63f0d1b3653" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">화면 좌상단 혹은 우상단에 뱃지를 통해 리딩 리스트 사이드바 불러오기 기능 → 뱃지가 아니었음 .. . 쥬루룩</span></span><ul class="BulletedListWrapper"><li id="https://www.notion.so/6253bfb8793c4084ac260decb7a75004" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="http://developer.chrome.com/extensions/browserAction#badge">chrome.browserAction#badge</a></span></span></li></ul></li></ul><div id="https://www.notion.so/7fdd50c98293499f9e2af0758bf875c7" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div></article>  <footer class="Footer">
-        <div>&copy; JSnow Blog; 2020</div>
-        <div>&centerdot;</div>
-        <div>Powered by <a href="https://github.com/dragonman225/notablog" target="_blank"
-            rel="noopener noreferrer">Notablog</a>.
-        </div>
+document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span></span></span></span></code></pre></li><li id="https://www.notion.so/7ed5060dc71d4a808d8c2a2606c3311a" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">북마크 불러와서 저장</span></span><ul class="BulletedListWrapper"><li id="https://www.notion.so/d5caf1aadd2e4e5398fed90a3a7a232c" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://developer.chrome.com/extensions/manifest/storage">Manifest for storage area</a></span></span></li></ul></li><li id="https://www.notion.so/f5dab321bafb484f84b5d8b94ffb6a93" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">브라우저 북마크 관리</span></span><ul class="BulletedListWrapper"><li id="https://www.notion.so/79d198e764394ac5b516f1b18e936398" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://developer.chrome.com/extensions/bookmarks">chrome.bookmarks</a></span></span></li></ul></li><li id="https://www.notion.so/7eb2102de0aa4c7589aacb3ec2715e33" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">컨텍스트 메뉴로 링크 저장할 수 있게</span></span><ul class="BulletedListWrapper"><li id="https://www.notion.so/672a8de39b8447a88903b1eddb65a07f" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://developer.chrome.com/extensions/contextMenus">chrome.contextMenus</a></span></span></li></ul></li><li id="https://www.notion.so/3492a23e949446ebbf86a63f0d1b3653" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">화면 좌상단 혹은 우상단에 뱃지를 통해 리딩 리스트 사이드바 불러오기 기능 → 뱃지가 아니었음 .. . 쥬루룩</span></span><ul class="BulletedListWrapper"><li id="https://www.notion.so/6253bfb8793c4084ac260decb7a75004" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="http://developer.chrome.com/extensions/browserAction#badge">chrome.browserAction#badge</a></span></span></li></ul></li></ul><div id="https://www.notion.so/7fdd50c98293499f9e2af0758bf875c7" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div></article>    <footer class="Footer">
+      <div>&copy; JSnow Blog; 2020</div>
+      <div>&centerdot;</div>
+      <div>
+        Powered by
+        <a
+          href="https://github.com/dragonman225/notablog"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Notablog</a
+        >.
+      </div>
     </footer>
-</body>
-
+  </body>
 </html>
