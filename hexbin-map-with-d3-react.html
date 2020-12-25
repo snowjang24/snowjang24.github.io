@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <!-- Chrome, Firefox OS and Opera Status Bar Color -->
+    <meta name="theme-color" content="#FFFFFF" />
+    <meta property="og:title" content="HexBin Map 구현 D3, React" />
+        <meta name="description" content="HexBin Map을 세계지도에 구현하여 유저와의 인터렉티브를 통해 정보를 제공하는 서비스 구현" />
+    <meta property="og:description" content="HexBin Map을 세계지도에 구현하여 유저와의 인터렉티브를 통해 정보를 제공하는 서비스 구현" />
+        <meta property="og:type" content="blog" />
+    <title>HexBin Map 구현 D3, React</title>
+    <!-- Favicon -->
+        <link rel="shortcut icon" href="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F05840bbe-4318-4f7d-8137-d24f60003676%2Fjsnow_logo-b7f2b1915c73ea56bc6dcbe47cd6bf37.svg?table=collection&id=a638cb1d-7ab3-403b-8b63-d3c28730a5eb" />
+        <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="css/SourceSansPro.css" />
+    <link rel="stylesheet" type="text/css" href="css/notablog.css" />
+    <link rel="stylesheet" type="text/css" href="css/theme.css" />
+    <style>
+      :root {
+        font-size: 18px;
+      }
+      @media (max-width: 720px) {
+        :root {
+          font-size: 16px;
+        }
+      }
+      .DateTagBar {
+        margin-top: 1rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="Navbar">
+      <a href="index.html">
+        <div class="Navbar__Btn">
+          <span><img class="inline-img-icon" src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F05840bbe-4318-4f7d-8137-d24f60003676%2Fjsnow_logo-b7f2b1915c73ea56bc6dcbe47cd6bf37.svg?table=collection&id=a638cb1d-7ab3-403b-8b63-d3c28730a5eb"></span> <span>JSnow Blog;</span>
+        </div>
+      </a>
+                   <span class="Navbar__Delim">&centerdot;</span>
+      <a href="about.html">
+        <div class="Navbar__Btn">
+          <span>❄️</span> <span>About</span>
+        </div>
+      </a>
+             </nav>
+    <header class="Header">
+            <div
+        class="Header__Spacer Header__Spacer--NoCover"
+      ></div>
+            <div class="Header__Icon"><span>🌍</span></div>
+            <h1 class="Header__Title">HexBin Map 구현 D3, React</h1>
+            <div class="DateTagBar">
+        <div class="DateTagBar__TagList">
+                    <span
+            class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--green"
+          >
+            <a href="tag/d3.html">d3</a>
+          </span>
+                    <span
+            class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--default"
+          >
+            <a href="tag/react.html">react</a>
+          </span>
+                  </div>
+                <span class="DateTagBar__Item DateTagBar__Date"
+          >Posted on Wed, Dec 23, 2020</span
+        >
+              </div>
+          </header>
+    <article id="https://www.notion.so/2db318861ff34432b4558a9d49ca9e6a" class="PageRoot"><div id="https://www.notion.so/20e960314b19496ba08f4ca2f9098cac" class="Bookmark"><a href="https://observablehq.com/@rustyconover/2020-04-21-total-cloud-cover-78-hour-forecast-visualized-wit"><h5 class="Bookmark__Title">2020-04-21 Total Cloud Cover 78 hour forecast visualized with H3, Leaflet.js and D3.</h5><p class="Bookmark__Desc">This was produced by taking the grid data from National Digital Forecast Database then processing to H3 indexes at various resolutions then visualizing via GeoJSON.</p><p class="Bookmark__Link">https://observablehq.com/@rustyconover/2020-04-21-total-cloud-cover-78-hour-forecast-visualized-wit</p></a></div><div id="https://www.notion.so/5e0f62d1dd2045729900254c9dd18519" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><h2 id="https://www.notion.so/9e358a2593ec476bbf600fe732513c25" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/9e358a2593ec476bbf600fe732513c25"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">필요 개념 및 라이브러리</span></span></h2><ul class="BulletedListWrapper"><li id="https://www.notion.so/aaa5551f4bd7445c944c39be80118fe0" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">d3.js</span></span></li><li id="https://www.notion.so/f101a7e6d4ce4be1b64f37250ba6cfa8" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">Leaflet</span></span></li><li id="https://www.notion.so/b97b9c24568241ad8ab26f6cec55957d" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">geojson</span></span></li><li id="https://www.notion.so/ec4e3ce5564d4faeb8c32c9be0ebf0c5" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">OpenStreetMap</span></span></li><li id="https://www.notion.so/8ed46cef70ec45f289b1dff26da3eca2" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">turfjs</span></span></li><li id="https://www.notion.so/4819ea484e14495899e2f7dc62499b25" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://h3geo.org/docs/usecases">h3geo</a></span></span></li><li id="https://www.notion.so/b1a84990882d44a28193365a9af6193b" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://github.com/uber/h3-js#readme">h3-js</a></span></span></li><li id="https://www.notion.so/a062d1c11c5d4e36853ed278d863f995" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://github.com/uber/geojson2h3">geojson2h3</a></span></span></li></ul><h1 id="https://www.notion.so/868a340be71645ee90c5d021af36c546" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/868a340be71645ee90c5d021af36c546"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Leaflet</span></span></h1><div id="https://www.notion.so/e8a15cd2da5b4c7db58656fc02fba93c" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">Leaflet은 모바일에 친화적인 상호작용 지도를 만들어 주는 자바스크립트 라이브러리다. react에는 </span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://react-leaflet.js.org/">React Leaflet</a></span><span class="SemanticString">이라는 라이브러리가 따로 있다.</span></span></p></div><div id="https://www.notion.so/26991285d18146e394b48db2f8b5e7d2" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">react-leaflet의 경우 leaflet과는 별도의 라이브러리다. 따라서, 설치를 위해서는 기본적으로 react-leaflet과 leaflet을 모두 설치해야 한다.</span></span></p></div><pre id="https://www.notion.so/e40bfa4fe01f46a9ba34ba64c21a1758" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token function">yarn</span> <span class="token function">add</span> react-leaflet leaflet
+<span class="token function">yarn</span> <span class="token function">add</span> -D @types/react-leaflet</span></span></span></code></pre><div id="https://www.notion.so/55a3100613504512ab4af575b0816f51" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><pre id="https://www.notion.so/b050bd9af7344b9e801f5946579c4588" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token operator">&lt;</span>link
+  rel<span class="token operator">=</span><span class="token string">"stylesheet"</span>
+  href<span class="token operator">=</span><span class="token string">"https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"</span>
+  integrity<span class="token operator">=</span><span class="token string">"sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="</span>
+  crossOrigin<span class="token operator">=</span><span class="token string">""</span>
+<span class="token operator">/</span><span class="token operator">></span>
+<span class="token operator">&lt;</span>script
+  src<span class="token operator">=</span><span class="token string">"https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"</span>
+  integrity<span class="token operator">=</span><span class="token string">"sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="</span>
+  crossOrigin<span class="token operator">=</span><span class="token string">""</span>
+<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span></span></span></span></code></pre><div id="https://www.notion.so/18ed25d30fb24dea94e6c066c7d117e6" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><pre id="https://www.notion.so/fb2fc2a5ab5941048c3083a3e101b300" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token keyword">import</span> styled <span class="token keyword">from</span> <span class="token string">'@emotion/styled'</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> LatLngTuple <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'leaflet'</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> MapContainer<span class="token punctuation">,</span> TileLayer<span class="token punctuation">,</span> Marker<span class="token punctuation">,</span> Popup <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react-leaflet'</span>
+
+<span class="token keyword">const</span> PageWrapper <span class="token operator">=</span> styled<span class="token punctuation">.</span>div<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+</span><span class="token template-punctuation string">`</span></span>
+
+<span class="token keyword">interface</span> <span class="token class-name">PlayPageProps</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">PlayPage</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token operator">:</span> PlayPageProps</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> position<span class="token operator">:</span> LatLngTuple <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">51.505</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">0.09</span><span class="token punctuation">]</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>PageWrapper<span class="token operator">></span>
+      <span class="token operator">&lt;</span>MapContainer center<span class="token operator">=</span><span class="token punctuation">{</span>position<span class="token punctuation">}</span> zoom<span class="token operator">=</span><span class="token punctuation">{</span><span class="token number">13</span><span class="token punctuation">}</span> scrollWheelZoom<span class="token operator">=</span><span class="token punctuation">{</span><span class="token boolean">false</span><span class="token punctuation">}</span><span class="token operator">></span>
+        <span class="token operator">&lt;</span>TileLayer
+          attribution<span class="token operator">=</span><span class="token string">'&amp;copy; &lt;a href="http://osm.org/copyright">OpenStreetMap&lt;/a> contributors'</span>
+          url<span class="token operator">=</span><span class="token string">"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"</span>
+        <span class="token operator">/</span><span class="token operator">></span>
+        <span class="token operator">&lt;</span>Marker position<span class="token operator">=</span><span class="token punctuation">{</span>position<span class="token punctuation">}</span><span class="token operator">></span>
+          <span class="token operator">&lt;</span>Popup<span class="token operator">></span>
+            <span class="token constant">A</span> pretty <span class="token constant">CSS3</span> popup<span class="token punctuation">.</span> <span class="token operator">&lt;</span>br <span class="token operator">/</span><span class="token operator">></span> Easily customizable<span class="token punctuation">.</span>
+          <span class="token operator">&lt;</span><span class="token operator">/</span>Popup<span class="token operator">></span>
+        <span class="token operator">&lt;</span><span class="token operator">/</span>Marker<span class="token operator">></span>
+      <span class="token operator">&lt;</span><span class="token operator">/</span>MapContainer<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>PageWrapper<span class="token operator">></span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> PlayPage</span></span></span></code></pre><div id="https://www.notion.so/bf25beb22f64463f98096b073f275a3d" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">이번 프로젝트에서는 개발 환경 자체가 Next로 개발된 SSR을 하고 있기 때문에 예제 코드를 실행할 경우 아래와 같은 에러가 발생한다.</span></span></p></div><pre id="https://www.notion.so/182f6f1e4f59466e9494ff0f4587bad2" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>Server Error
+ReferenceError: window is not defined
+This error happened <span class="token keyword">while</span> generating the page. Any console logs will be displayed <span class="token keyword">in</span> the terminal window.</span></span></span></code></pre><div id="https://www.notion.so/b741ff00f3214186bd5f61a2b8fe86ea" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">이는 </span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://react-leaflet.js.org/docs/start-introduction#limitations">react-leaflet에서도 명시하고 있는 문제</a></span><span class="SemanticString">로 해결하기 위해서는 SSR이 아닌 CSR로 바꾸어 진행하려 한다.</span></span></p></div><blockquote id="https://www.notion.so/7c20797dbd7f45988f21a50904e6d57e" class="ColorfulBlock ColorfulBlock--ColorDefault Quote"><span class="SemanticStringArray"><span class="SemanticString">Leaflet makes direct calls to the DOM when it is loaded, therefore React Leaflet is not compatible with server-side rendering.</span></span></blockquote><div id="https://www.notion.so/bee49f913982426993915bb0dcfd8215" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">이를 위해서는 Next.js의 Dynamic Import 기능을 이용하여 쉽게 해결할 수 있다. </span></span></p></div><div id="https://www.notion.so/c83ad932cc8348d6ab898de500b75539" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><pre id="https://www.notion.so/e0d7a502c0ab4a99b195d4548f8f0c36" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
+<span class="token keyword">import</span> styled <span class="token keyword">from</span> <span class="token string">'@emotion/styled'</span>
+<span class="token keyword">import</span> dynamic <span class="token keyword">from</span> <span class="token string">'next/dynamic'</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> isBrowser <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'utils/index'</span>
+
+<span class="token keyword">const</span> NoSSRComponent <span class="token operator">=</span> <span class="token function">dynamic</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token string">'components/Map'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  ssr<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> PageWrapper <span class="token operator">=</span> styled<span class="token punctuation">.</span>div<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+</span><span class="token template-punctuation string">`</span></span>
+
+<span class="token keyword">interface</span> <span class="token class-name">PlayPageProps</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">PlayPage</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token operator">:</span> PlayPageProps</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token operator">&lt;</span>PageWrapper<span class="token operator">></span><span class="token punctuation">{</span>isBrowser <span class="token operator">&amp;&amp;</span> <span class="token operator">&lt;</span>NoSSRComponent <span class="token operator">/</span><span class="token operator">></span><span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>PageWrapper<span class="token operator">></span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> PlayPage</span></span></span></code></pre><div id="https://www.notion.so/c4d1a807c13149ba95820151d5072278" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><pre id="https://www.notion.so/96bbb919bf5144d88fb289328391a90e" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token keyword">import</span> <span class="token punctuation">{</span> css <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@emotion/react'</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> LatLngTuple <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'leaflet'</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> MapContainer<span class="token punctuation">,</span> TileLayer <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'react-leaflet'</span>
+
+<span class="token keyword">function</span> <span class="token function">Map</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> position<span class="token operator">:</span> LatLngTuple <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">51.505</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">0.09</span><span class="token punctuation">]</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token operator">&lt;</span>MapContainer
+      center<span class="token operator">=</span><span class="token punctuation">{</span>position<span class="token punctuation">}</span>
+      zoom<span class="token operator">=</span><span class="token punctuation">{</span><span class="token number">5</span><span class="token punctuation">}</span>
+      scrollWheelZoom<span class="token operator">=</span><span class="token punctuation">{</span><span class="token boolean">false</span><span class="token punctuation">}</span>
+      css<span class="token operator">=</span><span class="token punctuation">{</span>css<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+        width: 100%;
+        height: 100%;
+      </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">}</span>
+    <span class="token operator">></span>
+      <span class="token operator">&lt;</span>TileLayer
+        attribution<span class="token operator">=</span><span class="token string">'&amp;copy; &lt;a href="http://osm.org/copyright">OpenStreetMap&lt;/a> contributors'</span>
+        url<span class="token operator">=</span><span class="token string">"http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"</span>
+      <span class="token operator">/</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>MapContainer<span class="token operator">></span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> Map</span></span></span></code></pre><h2 id="https://www.notion.so/8f31527aecc64fda8f178e923488f060" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/8f31527aecc64fda8f178e923488f060"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Reference</span></span></h2><ul class="BulletedListWrapper"><li id="https://www.notion.so/9235259d40c248bf9ad704423c020213" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://dev.to/axelledrouge/how-to-create-the-base-of-a-map-with-reactjs-leaflet-and-typescript-268m">https://dev.to/axelledrouge/how-to-create-the-base-of-a-map-with-reactjs-leaflet-and-typescript-268m</a></span></span></li><li id="https://www.notion.so/86b1a12b7ec341af88c1bd85637950ed" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://observablehq.com/@nrabinowitz/h3-tutorial-heatmap-rendering">https://observablehq.com/@nrabinowitz/h3-tutorial-heatmap-rendering</a></span></span></li></ul></article>
+    <script
+      src="https://utteranc.es/client.js"
+      repo="snowjang24/snowjang24.github.io"
+      issue-term="url"
+      label="Comment"
+      theme="github-light"
+      crossorigin="anonymous"
+      async
+    ></script>
+    <footer class="Footer">
+      <div>&copy; JSnow Blog; 2020</div>
+      <div>&centerdot;</div>
+      <div>
+        Powered by
+        <a
+          href="https://github.com/dragonman225/notablog"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Notablog</a
+        >.
+      </div>
+    </footer>
+  </body>
+</html>
