@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <!-- Chrome, Firefox OS and Opera Status Bar Color -->
+    <meta name="theme-color" content="#FFFFFF" />
+    <meta property="og:title" content="SSR, CSR 그리고 Pre-rendering" />
+        <meta property="og:type" content="blog" />
+    <title>SSR, CSR 그리고 Pre-rendering</title>
+    <!-- Favicon -->
+        <link rel="shortcut icon" href="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F05840bbe-4318-4f7d-8137-d24f60003676%2Fjsnow_logo-b7f2b1915c73ea56bc6dcbe47cd6bf37.svg?table=collection&id=a638cb1d-7ab3-403b-8b63-d3c28730a5eb" />
+        <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="css/SourceSansPro.css" />
+    <link rel="stylesheet" type="text/css" href="css/notablog.css" />
+    <link rel="stylesheet" type="text/css" href="css/theme.css" />
+    <style>
+      :root {
+        font-size: 18px;
+      }
+      @media (max-width: 720px) {
+        :root {
+          font-size: 16px;
+        }
+      }
+      .DateTagBar {
+        margin-top: 1rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="Navbar">
+      <a href="index.html">
+        <div class="Navbar__Btn">
+          <span><img class="inline-img-icon" src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F05840bbe-4318-4f7d-8137-d24f60003676%2Fjsnow_logo-b7f2b1915c73ea56bc6dcbe47cd6bf37.svg?table=collection&id=a638cb1d-7ab3-403b-8b63-d3c28730a5eb"></span> <span>JSnow Blog;</span>
+        </div>
+      </a>
+                                   <span class="Navbar__Delim">&centerdot;</span>
+      <a href="about.html">
+        <div class="Navbar__Btn">
+          <span>❄️</span> <span>About</span>
+        </div>
+      </a>
+             </nav>
+    <header class="Header">
+            <div
+        class="Header__Spacer Header__Spacer--NoCover"
+      ></div>
+            <div class="Header__Icon"><span>🗄️</span></div>
+            <h1 class="Header__Title">SSR, CSR 그리고 Pre-rendering</h1>
+            <div class="DateTagBar">
+        <div class="DateTagBar__TagList">
+                    <span
+            class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--default"
+          >
+            <a href="tag/react.html">react</a>
+          </span>
+                    <span
+            class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--green"
+          >
+            <a href="tag/ssr.html">ssr</a>
+          </span>
+                    <span
+            class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--default"
+          >
+            <a href="tag/csr.html">csr</a>
+          </span>
+                  </div>
+                <span class="DateTagBar__Item DateTagBar__Date"
+          >Posted on Thu, Feb 4, 2021</span
+        >
+              </div>
+          </header>
+    <article id="https://www.notion.so/7036fc8cd43d45628d12848da9590122" class="PageRoot"><div id="https://www.notion.so/ac97f3d1f3ca4231aa9cff89bf3cc757" class="Bookmark"><a href="https://developers.google.com/web/updates/2019/02/rendering-on-the-web"><h5 class="Bookmark__Title">Rendering on the Web | Google Developers</h5><p class="Bookmark__Desc">As developers, we are often faced with decisions that will affect the entire architecture of our applications. One of the core decisions web developers must make is where to implement logic and rendering in their application. This can be a difficult, since there are a number of different ways to build a website.</p><p class="Bookmark__Link">https://developers.google.com/web/updates/2019/02/rendering-on-the-web</p></a></div><div id="https://www.notion.so/c31fb809f2954c559e451fa5d7eda8d4" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/a9484f082c2d4ea68305b1cf4e6a52cf" class="Image Image--PageWidth"><figure><a href="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F8b74938f-765a-42ad-86f3-104f624f4191%2FUntitled.png?width=2164&amp;table=block&amp;id=a9484f08-2c2d-4ea6-8305-b1cf4e6a52cf"><img src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F8b74938f-765a-42ad-86f3-104f624f4191%2FUntitled.png?width=2164&amp;table=block&amp;id=a9484f08-2c2d-4ea6-8305-b1cf4e6a52cf" style="width:100%"/></a><figcaption><span class="SemanticStringArray"></span></figcaption></figure></div><div id="https://www.notion.so/b34eb9394de545a1a4255444c4ef103a" class="Bookmark"><a href="https://prismic.io/blog/how-gatsby-and-nextjs-really-work"><h5 class="Bookmark__Title">How Gatsby and Next.js really work (and what it means for speed and SEO)</h5><p class="Bookmark__Desc">This is a transcript of an (extremely technical but nonetheless interesting) conversation about Gatsby, Next.js, speed, SEO, caching, and other things between Sadek (the CEO of Prismic) and Gabe (a core engineer - at Prismic, too). Watch the video, or scan through the highlights below, or read the entire thing - or do none of these things.</p><p class="Bookmark__Link">https://prismic.io/blog/how-gatsby-and-nextjs-really-work</p></a></div><div id="https://www.notion.so/7030b4f8ad2d4f2f9240cdafc7f3e59b" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/8e46b5d7fc7b40038cf70fc0d0b36b9e" class="Bookmark"><a href="https://www.toptal.com/front-end/client-side-vs-server-side-pre-rendering"><h5 class="Bookmark__Title">Client-side vs. Server-side vs. Pre-rendering for Web Apps</h5><p class="Bookmark__Desc">User experience tanks when sites feel slow. Today&#x27;s heavier front ends don&#x27;t help. In this article, Toptal Freelance Front-end Developer Guillaume Breux compares client-side vs server-side and also pre-rendering strategies to help you choose the best option for your own app.</p><p class="Bookmark__Link">https://www.toptal.com/front-end/client-side-vs-server-side-pre-rendering</p></a></div><div id="https://www.notion.so/ad91edb958f64fd6acc292f1207c461c" class="Bookmark"><a href="https://prismic.io/blog/how-gatsby-and-nextjs-really-work"><h5 class="Bookmark__Title">https://prismic.io/blog/how-gatsby-and-nextjs-really-work</h5><p class="Bookmark__Link">https://prismic.io/blog/how-gatsby-and-nextjs-really-work</p></a></div></article>
+    <script
+      src="https://utteranc.es/client.js"
+      repo="snowjang24/snowjang24.github.io"
+      issue-term="url"
+      label="Comment"
+      theme="github-light"
+      crossorigin="anonymous"
+      async
+    ></script>
+    <footer class="Footer">
+      <div>&copy; JSnow Blog; 2020</div>
+      <div>&centerdot;</div>
+      <div>
+        Powered by
+        <a
+          href="https://github.com/dragonman225/notablog"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Notablog</a
+        >.
+      </div>
+    </footer>
+  </body>
+</html>
