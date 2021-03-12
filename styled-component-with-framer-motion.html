@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <!-- Chrome, Firefox OS and Opera Status Bar Color -->
+    <meta name="theme-color" content="#FFFFFF" />
+    <meta property="og:title" content="Styled Component + Framer Motion" />
+        <meta name="description" content="Styled Component와 Framer를 함께 쓰는 방법" />
+    <meta property="og:description" content="Styled Component와 Framer를 함께 쓰는 방법" />
+        <meta property="og:type" content="blog" />
+    <title>Styled Component + Framer Motion</title>
+    <!-- Favicon -->
+        <link rel="shortcut icon" href="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F05840bbe-4318-4f7d-8137-d24f60003676%2Fjsnow_logo-b7f2b1915c73ea56bc6dcbe47cd6bf37.svg?table=collection&id=a638cb1d-7ab3-403b-8b63-d3c28730a5eb" />
+        <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="css/SourceSansPro.css" />
+    <link rel="stylesheet" type="text/css" href="css/notablog.css" />
+    <link rel="stylesheet" type="text/css" href="css/theme.css" />
+    <style>
+      :root {
+        font-size: 18px;
+      }
+      @media (max-width: 720px) {
+        :root {
+          font-size: 16px;
+        }
+      }
+      .DateTagBar {
+        margin-top: 1rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="Navbar">
+      <a href="index.html">
+        <div class="Navbar__Btn">
+          <span><img class="inline-img-icon" src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F05840bbe-4318-4f7d-8137-d24f60003676%2Fjsnow_logo-b7f2b1915c73ea56bc6dcbe47cd6bf37.svg?table=collection&id=a638cb1d-7ab3-403b-8b63-d3c28730a5eb"></span> <span>JSnow Blog;</span>
+        </div>
+      </a>
+                                           <span class="Navbar__Delim">&centerdot;</span>
+      <a href="about.html">
+        <div class="Navbar__Btn">
+          <span>❄️</span> <span>About</span>
+        </div>
+      </a>
+             </nav>
+    <header class="Header">
+            <div
+        class="Header__Spacer Header__Spacer--NoCover"
+      ></div>
+            <h1 class="Header__Title">Styled Component + Framer Motion</h1>
+            <div class="DateTagBar">
+        <div class="DateTagBar__TagList">
+                    <span
+            class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--green"
+          >
+            <a href="tag/framer.html">framer</a>
+          </span>
+                    <span
+            class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--purple"
+          >
+            <a href="tag/styled-component.html">styled-component</a>
+          </span>
+                    <span
+            class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--gray"
+          >
+            <a href="tag/library.html">library</a>
+          </span>
+                  </div>
+                <span class="DateTagBar__Item DateTagBar__Date"
+          >Posted on Fri, Feb 26, 2021</span
+        >
+              </div>
+          </header>
+    <article id="https://www.notion.so/f7133aee93614fc58a0ff149b91ed237" class="PageRoot"><div id="https://www.notion.so/2b38f8e78b5d4a8da39eece41766498b" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><pre id="https://www.notion.so/2caeb676fc984cdf8ea728ca7fd92f54" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token operator">&lt;</span>MyComponent <span class="token keyword">as</span><span class="token operator">=</span><span class="token punctuation">{</span>motion<span class="token punctuation">.</span>div<span class="token punctuation">}</span> animate<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span> y<span class="token operator">:</span> <span class="token number">100</span> <span class="token punctuation">}</span><span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">></span></span></span></span></code></pre><div id="https://www.notion.so/7bc06e7993cf47d482a82927acbd5636" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><pre id="https://www.notion.so/b2da2dc162f840c2a3555d4e27c99346" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token keyword">const</span> MyCustomComponent <span class="token operator">=</span> <span class="token function">styled</span><span class="token punctuation">(</span>motion<span class="token punctuation">.</span>div<span class="token punctuation">)</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+  width: 2rem;
+  background-color: tomato;
+</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span></span></span></span></code></pre><div id="https://www.notion.so/f0a954fcf5c34eb4a68188df9171e7bd" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><pre id="https://www.notion.so/a11d0fe99d3c460ea3e682cd176adacb" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token operator">&lt;</span>div<span class="token operator">></span>
+  <span class="token operator">&lt;</span>MyCustomComponent drag <span class="token operator">/</span><span class="token operator">></span>
+  <span class="token operator">&lt;</span>MyCustomComponent animate<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span> opacity<span class="token operator">:</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">}</span> <span class="token operator">/</span><span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span></span></span></span></code></pre></article>
+    <script
+      src="https://utteranc.es/client.js"
+      repo="snowjang24/snowjang24.github.io"
+      issue-term="url"
+      label="Comment"
+      theme="github-light"
+      crossorigin="anonymous"
+      async
+    ></script>
+    <footer class="Footer">
+      <div>&copy; JSnow Blog; 2020</div>
+      <div>&centerdot;</div>
+      <div>
+        Powered by
+        <a
+          href="https://github.com/dragonman225/notablog"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Notablog</a
+        >.
+      </div>
+    </footer>
+  </body>
+</html>
